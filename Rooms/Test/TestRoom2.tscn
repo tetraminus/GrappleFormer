@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cakdqwnhwguxa"]
+
+[ext_resource type="Texture2D" uid="uid://dnk43mgi5iqqv" path="res://icon.svg" id="1_455u5"]
+[ext_resource type="Script" path="res://Rooms/Test/RoomPortal.gd" id="2_0ccpt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aiiem"]
+size = Vector2(1224, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_idsq8"]
+size = Vector2(20, 99)
+
+[node name="TestRoom2" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(537, 489)
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_aiiem")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+rotation = 3.14159
+scale = Vector2(9.72, 1)
+texture = ExtResource("1_455u5")
+
+[node name="Spawn1" type="Node2D" parent="."]
+position = Vector2(93, 362)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(7, 344)
+script = ExtResource("2_0ccpt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 29.5)
+shape = SubResource("RectangleShape2D_idsq8")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

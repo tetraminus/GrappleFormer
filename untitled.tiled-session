@@ -1,0 +1,32 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "test.tsx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "test.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2.78
+        }
+    },
+    "last.imagePath": "/Users/jamesboyko/platforms/Rooms",
+    "map.tileHeight": 8,
+    "map.tileWidth": 8,
+    "openFiles": [
+        "test.tsx"
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+        "test.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 8,
+        "width": 8
+    },
+    "tileset.transparentColor": "#000000"
+}

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bss8gpldxhmhd"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_2nm25"]
+[ext_resource type="Texture2D" uid="uid://d1k34mckuddef" path="res://Player.png" id="2_7oke4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfvmk"]
+friction = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gcg1f"]
+radius = 8.0
+height = 32.0
+
+[node name="player" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_bfvmk")
+lock_rotation = true
+script = ExtResource("1_2nm25")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_gcg1f")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("2_7oke4")
+
+[node name="HookGrappling" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]

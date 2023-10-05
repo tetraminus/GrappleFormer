@@ -1,0 +1,37 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="platforms"
+run/main_scene="res://Rooms/Test/TestRoom1.tscn"
+config/features=PackedStringArray("4.1", "Mobile")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/size/window_width_override=1152
+window/size/window_height_override=648
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray()
+
+[physics]
+
+2d/solver/contact_max_allowed_penetration=0.01
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="mobile"
