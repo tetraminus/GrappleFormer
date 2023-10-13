@@ -5,13 +5,15 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfvmk"]
 friction = 0.0
+absorbent = true
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gcg1f"]
-radius = 8.0
-height = 32.0
+radius = 32.0
+height = 128.0
 
 [node name="player" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_bfvmk")
+continuous_cd = 2
 lock_rotation = true
 script = ExtResource("1_2nm25")
 
@@ -19,9 +21,10 @@ script = ExtResource("1_2nm25")
 shape = SubResource("CapsuleShape2D_gcg1f")
 
 [node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(4, 4)
+scale = Vector2(16, 16)
 texture = ExtResource("2_7oke4")
 
-[node name="HookGrappling" type="Node" parent="."]
-
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.125, 0.125)
+
+[node name="Node2D" type="Node2D" parent="."]
