@@ -1,19 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://bss8gpldxhmhd"]
+[gd_scene load_steps=6 format=3 uid="uid://bss8gpldxhmhd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_2nm25"]
 [ext_resource type="Texture2D" uid="uid://d1k34mckuddef" path="res://Player.png" id="2_7oke4"]
+[ext_resource type="Script" path="res://GrappleHolder.gd" id="3_l67oh"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfvmk"]
 friction = 0.0
 absorbent = true
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gcg1f"]
-radius = 32.0
-height = 128.0
+radius = 64.0
+height = 256.0
 
 [node name="player" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_bfvmk")
 continuous_cd = 2
+can_sleep = false
 lock_rotation = true
 script = ExtResource("1_2nm25")
 
@@ -21,10 +23,15 @@ script = ExtResource("1_2nm25")
 shape = SubResource("CapsuleShape2D_gcg1f")
 
 [node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(16, 16)
+scale = Vector2(32, 32)
 texture = ExtResource("2_7oke4")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.125, 0.125)
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="GrappleHolder" type="Node2D" parent="."]
+script = ExtResource("3_l67oh")
+
+[node name="RayCast2D" type="RayCast2D" parent="GrappleHolder"]
+target_position = Vector2(10000, 2.08165e-12)
+
+[node name="Line2D" type="Line2D" parent="GrappleHolder"]

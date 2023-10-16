@@ -1,10 +1,10 @@
 # rigidbody character controller
 extends RigidBody2D
 
-var speed = 160
-var max_speed = 1600
-var jump_speed = 1600
-var base_gravity = 80
+var speed = 320
+var max_speed = 3200
+var jump_speed = 3200
+var base_gravity = 100
 var Slope_Threshold = deg_to_rad(50.0)
 var base_scale
 
@@ -63,14 +63,9 @@ func _physics_process(_delta):
 	# move along the slope if on a slope
 	if on_ground and collision.get_angle() != 0:
 		# rotate the motion vector to the normal of the slope using the collision normal
-		motion =  motion.rotated(collision.get_normal().angle() + PI/2)
-
+		motion = motion.rotated(collision.get_normal().angle() + PI/2)
 		
 
-		
-
-
-		
 		
 	if Input.is_action_just_pressed("move_down") and not slamming:
 		motion.y += 1
@@ -83,8 +78,6 @@ func _physics_process(_delta):
 	if not Input.is_action_pressed("move_down") and on_ground:
 		if sliding:
 			sliding = false
-			
-
 
 	
 	if on_ground:
@@ -109,41 +102,46 @@ func _physics_process(_delta):
 			motion.y = -jump_speed
 		
 		
-		
-
-
 	
 	motion.y += gravity
 
-	linear_velocity.y += motion.y
+
+	apply_central_impulse(Vector2(0, motion.y))
+
 	
 	# if linear_velocity.x is greater than max_speed and in the direction of motion.x dont add motion.x
 	if (abs(linear_velocity.x) < max_speed or sign(linear_velocity.x) != sign(motion.x)) and not sliding and not slamming:
-		linear_velocity.x += motion.x
+		apply_central_impulse(Vector2(motion.x, 0))
 	
-	
-	
-	if on_ground and not sliding:
-		linear_velocity.x = lerp(linear_velocity.x,0.0, 0.1)
-		linear_velocity.y = lerp(linear_velocity.y,0.0, 0.1)
 		
 	#move camera ahead of player based on velocity and motion
 	$Camera2D.global_position.x = lerp($Camera2D.global_position.x, global_position.x + motion.x*.25 , .01)
 	$Camera2D.global_position.x = lerp($Camera2D.global_position.x, global_position.x + linear_velocity.x*.025 , .1)
 	# zoom camera vector based on velocity
 	if abs(linear_velocity.x) > 100:
-		$Camera2D.zoom.x = max(lerp($Camera2D.zoom.x, 0.125 - abs(linear_velocity.x)*0.00001, .1), 0.025)
-		$Camera2D.zoom.y = max(lerp($Camera2D.zoom.y, 0.125 - abs(linear_velocity.x)*0.00001, .1), 0.025)
-	
+		$Camera2D.zoom.x = max(lerp($Camera2D.zoom.x, 1.8 - abs(linear_velocity.x)*0.000001, .1), 0.025)
+		$Camera2D.zoom.y = max(lerp($Camera2D.zoom.y, 1.8 - abs(linear_velocity.x)*0.000001, .1), 0.025)
+	else:
+		$Camera2D.zoom.x = lerp($Camera2D.zoom.x, 2.0, .1)
+		$Camera2D.zoom.y = lerp($Camera2D.zoom.y, 2.0, .1)
+
 	
 func _integrate_forces(state):
 	# prevent slipping down slopes while standing still but allow sliding
 
 	var collision = KinematicCollision2D.new()
 
+	if on_ground and not sliding:
+		state.linear_velocity.x = lerp(linear_velocity.x,0.0, 0.1)
+		state.linear_velocity.y = lerp(linear_velocity.y,0.0, 0.1)
+
 	if test_move(transform, Vector2(0, 1), collision) and not sliding and abs(collision.get_angle()) > 0:
 		gravity = 0
-		#push player onto slope
+		#apply force to push player onto slope using the collision normal
+		apply_central_force (collision.get_normal() * -10000)
+		
+		
+		
 		
 	else:
 		gravity = base_gravity

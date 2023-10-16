@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://1mfjp4ox353g"]
+
+[ext_resource type="Texture2D" uid="uid://dnk43mgi5iqqv" path="res://icon.svg" id="1_s37v0"]
+
+[node name="EndPoint" type="StaticBody2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("1_s37v0")
+
+[node name="attachpoint" type="StaticBody2D" parent="."]
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_a = NodePath("..")
+node_b = NodePath("../attachpoint")
