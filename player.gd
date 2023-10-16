@@ -13,6 +13,8 @@ var gravity
 var on_ground = false
 var sliding = false
 var slamming
+var grapplepoint
+var grappledistance
 
 
 func _ready():
@@ -34,6 +36,7 @@ func _process(delta):
 		$Icon.global_scale.x = base_scale.x
 		$Icon.position.y = 0
 		
+	queue_redraw()
 var coyote_timer = 0
 
 #2d rigidbody character controller
@@ -135,13 +138,25 @@ func _integrate_forces(state):
 		state.linear_velocity.x = lerp(linear_velocity.x,0.0, 0.1)
 		state.linear_velocity.y = lerp(linear_velocity.y,0.0, 0.1)
 
+	# grapple logic
+	if grappledistance != null and grapplepoint != null:
+		# dont allow player to leave grapple radius
+		if global_position.distance_to(grapplepoint) > grappledistance:
+			apply_central_impulse((grapplepoint - global_position).normalized() * ((grapplepoint - global_position).length() - grappledistance))
+			
+				
+		if state.linear_velocity.dot(grapplepoint - global_position) < 0 and global_position.distance_to(grapplepoint) >= grappledistance:
+			#cancel any velocity in the opposite direction of the grapple point
+			state.linear_velocity = state.linear_velocity.project((grapplepoint - global_position).rotated(PI/2))
+			
+		
+			
+
+
 	if test_move(transform, Vector2(0, 1), collision) and not sliding and abs(collision.get_angle()) > 0:
 		gravity = 0
 		#apply force to push player onto slope using the collision normal
 		apply_central_force (collision.get_normal() * -10000)
-		
-		
-		
 		
 	else:
 		gravity = base_gravity
@@ -149,6 +164,17 @@ func _integrate_forces(state):
 		
 		
 
+func _draw():
+	if grapplepoint != null:
+		draw_line(Vector2.ZERO, grapplepoint - global_position, Color(1, 1, 1, 1), 2)
+		draw_circle(grapplepoint - global_position, 5, Color(1, 1, 1, 1))
+		draw_circle(grapplepoint - global_position, grappledistance, Color(1, 1, 1, 0.1))
+		#draw velocity vector
+		draw_line(Vector2.ZERO, linear_velocity, Color(1, 1, 1, 1), 2)
+		#draw rotated velocity vector
+		draw_line(Vector2.ZERO, linear_velocity.rotated(grapplepoint.angle_to(global_position) + PI/2), Color(1, 1, 1, 1), 2)
+		
+	
 
 
 
