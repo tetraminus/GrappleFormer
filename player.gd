@@ -153,7 +153,8 @@ func _integrate_forces(state):
 				
 		if state.linear_velocity.dot(grapplepoint - global_position) < 0 and global_position.distance_to(grapplepoint) >= grappledistance:
 			#cancel any velocity in the opposite direction of the grapple point
-			state.linear_velocity = state.linear_velocity.project((grapplepoint - global_position).rotated(PI/2))
+			var projectionvec = (state.linear_velocity.project((grapplepoint - global_position).rotated(PI/2)))
+			state.linear_velocity = projectionvec.normalized() * state.linear_velocity.length()
 
 		if global_position.distance_to(grapplepoint) < grappledistance * 0.9:
 			grappledistance -= 5

@@ -29,3 +29,4 @@ texture = ExtResource("2_7oke4")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="GrappleHolder" parent="." instance=ExtResource("3_m87yc")]
+grappledistance = 10000
