@@ -1,6 +1,8 @@
 # rigidbody character controller
 extends RigidBody2D
 
+class_name Player
+
 var speed = 320
 var max_speed = 3200
 var jump_speed = 3200
@@ -16,6 +18,8 @@ var sliding = false
 var slamming
 var grapplepoint
 var grappledistance
+@onready var grappleline:Line2D = $GrappleVis/Line2D
+@onready var grappleparticles:GPUParticles2D = $GrappleVis
 
 
 func _ready():
@@ -38,6 +42,23 @@ func _process(_delta):
 		$Icon.position.y = 0
 		
 	queue_redraw()
+	#put line between player and grapple point
+	if grapplepoint != null:
+		grappleline.points = [Vector2.ZERO, grapplepoint - global_position]
+		grappleline.visible = true
+	else:
+		grappleline.visible = false
+	#put particles along line
+	if grapplepoint != null:
+		grappleparticles.emitting = true
+		grappleparticles.process_material.direction = Vector3((grapplepoint - global_position).normalized().x, (grapplepoint - global_position).normalized().y, 0)
+		grappleparticles.process_material.spread =10
+		
+	else:
+		grappleparticles.emitting = false
+		
+	
+	
 var coyote_timer = 0
 
 #2d rigidbody character controller
@@ -170,8 +191,26 @@ func _integrate_forces(state):
 	else:
 		gravity = base_gravity	
 
+
+func setgrapple(point:Vector2, distance:float = -1):
+	grapplepoint = point
+	if distance != -1:
+		grappledistance = distance
+	else:
+		grappledistance = global_position.distance_to(grapplepoint)
+
+func releasegrapple():
+	grapplepoint = null
+	grappledistance = null
+
+func grapplefling(flingspeed:float):
+	if grapplepoint != null:
+		apply_central_impulse((grapplepoint - global_position).normalized() * flingspeed)
+		releasegrapple()
+	
+
 func _draw():
-	if grapplepoint != null and EngineDebugger.is_active():
+	if false:
 		draw_line(Vector2.ZERO, grapplepoint - global_position, Color(1, 1, 1, 1), 2)
 		draw_circle(grapplepoint - global_position, 5, Color(1, 1, 1, 1))
 		draw_circle(grapplepoint - global_position, grappledistance, Color(1, 1, 1, 0.1))

@@ -1,13 +1,16 @@
 extends Node2D
 @onready var ray: RayCast2D = $RayCast2D
 @export var grappledistance:int
-
+@export var grapplespeed:int
+var player
 
 var current_grapple = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ray.target_position = Vector2(grappledistance,0)
+	player = owner as Player
+	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	
 
 func _process(_delta):
@@ -25,12 +28,13 @@ func _input(_event):
 			var point = ray.get_collision_point()
 			var distance = ray.get_collision_point().distance_to(owner.position)
 
-			owner.grapplepoint = point
-			owner.grappledistance = distance
+			player.setgrapple(point, distance)
 
 	if Input.is_action_just_released("grapple"):
-		owner.grapplepoint = null
-		owner.grappledistance = null
+		player.releasegrapple()
+	
+	if Input.is_action_just_pressed("grapplefling"):
+		player.grapplefling(grapplespeed)
 
 
 
