@@ -1,19 +1,21 @@
 extends Node2D
 @onready var ray: RayCast2D = $RayCast2D
+@export var grappledistance:int
 
 
 var current_grapple = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	ray.target_position = Vector2(grappledistance,0)
+	
 
-func _process(delta):
+func _process(_delta):
 	look_at(get_global_mouse_position())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _input(event):
+func _input(_event):
 	
 
 

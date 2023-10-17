@@ -25,7 +25,7 @@ func _ready():
 	gravity_scale = 0
 	gravity = base_gravity
 	
-func _process(delta):
+func _process(_delta):
 	if sliding:
 		$Icon.global_scale.y = base_scale.y*0.9
 		$Icon.global_scale.x = base_scale.x*1.1
@@ -65,7 +65,6 @@ func _physics_process(_delta):
 		
 	
 	# move along the slope if on a slope
-	# move along the slope if on a slope
 	if on_ground and collision.get_angle() != 0:
 		# rotate the motion vector to the normal of the slope using the collision normal
 		if grapplepoint == null:
@@ -92,9 +91,7 @@ func _physics_process(_delta):
 		if slamming:
 			slamming = false
 			gravity = base_gravity
-			sliding = true
-
-	
+			sliding = true	
 
 	motion = motion.normalized()
 
@@ -109,10 +106,7 @@ func _physics_process(_delta):
 		else:
 			motion.y = -jump_speed
 		
-		
-	
 	motion.y += gravity
-
 
 	apply_central_impulse(Vector2(0, motion.y))
 
@@ -173,10 +167,7 @@ func _integrate_forces(state):
 		apply_central_force (collision.get_normal() * -10000)
 		
 	else:
-		gravity = base_gravity
-		
-		
-		
+		gravity = base_gravity	
 
 func _draw():
 	if grapplepoint != null and EngineDebugger.is_active():
@@ -187,16 +178,4 @@ func _draw():
 		draw_line(Vector2.ZERO, linear_velocity, Color(1, 1, 1, 1), 2)
 		#draw rotated velocity vector
 		draw_line(Vector2.ZERO, linear_velocity.rotated(grapplepoint.angle_to(global_position) + PI/2), Color(1, 1, 1, 1), 2)
-		
 	
-
-
-
-	
-
-
-	
-	
-	
-
-
