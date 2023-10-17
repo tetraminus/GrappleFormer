@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsf78g47rf8uj"]
+
+[ext_resource type="Script" path="res://GrappleHolder.gd" id="1_v1jkm"]
+
+[node name="GrappleHolder" type="Node2D"]
+script = ExtResource("1_v1jkm")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(10000, 2.08165e-12)
+
+[node name="Line2D" type="Line2D" parent="."]

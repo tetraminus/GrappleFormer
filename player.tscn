@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://player.gd" id="1_2nm25"]
 [ext_resource type="Texture2D" uid="uid://d1k34mckuddef" path="res://Player.png" id="2_7oke4"]
-[ext_resource type="Script" path="res://GrappleHolder.gd" id="3_l67oh"]
+[ext_resource type="PackedScene" uid="uid://dsf78g47rf8uj" path="res://grapple_holder.tscn" id="3_m87yc"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfvmk"]
 friction = 0.0
@@ -28,10 +28,4 @@ texture = ExtResource("2_7oke4")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="GrappleHolder" type="Node2D" parent="."]
-script = ExtResource("3_l67oh")
-
-[node name="RayCast2D" type="RayCast2D" parent="GrappleHolder"]
-target_position = Vector2(10000, 2.08165e-12)
-
-[node name="Line2D" type="Line2D" parent="GrappleHolder"]
+[node name="GrappleHolder" parent="." instance=ExtResource("3_m87yc")]
