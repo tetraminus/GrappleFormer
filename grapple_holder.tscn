@@ -8,5 +8,3 @@ script = ExtResource("1_v1jkm")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(10000, 2.08165e-12)
 collision_mask = 8
-
-[node name="Line2D" type="Line2D" parent="."]
