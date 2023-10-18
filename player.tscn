@@ -1,6 +1,4 @@
-
-[gd_scene load_steps=10 format=3 uid="uid://bss8gpldxhmhd"]
-
+[gd_scene load_steps=29 format=3 uid="uid://bss8gpldxhmhd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_2nm25"]
 [ext_resource type="Texture2D" uid="uid://3d1d2ku7nsja" path="res://assets/playerSpritesheet.png" id="3_khbbs"]
@@ -262,8 +260,6 @@ sprite_frames = SubResource("SpriteFrames_cra6g")
 animation = &"idle 3"
 frame_progress = 0.455326
 
-
-
 [node name="GrappleVis" type="GPUParticles2D" parent="."]
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_351ax")
@@ -271,4 +267,3 @@ texture = SubResource("PlaceholderTexture2D_afpco")
 
 [node name="Line2D" type="Line2D" parent="GrappleVis"]
 default_color = Color(0.164706, 0, 1, 1)
-
