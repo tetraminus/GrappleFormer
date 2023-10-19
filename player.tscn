@@ -247,6 +247,10 @@ continuous_cd = 1
 can_sleep = false
 lock_rotation = true
 script = ExtResource("1_2nm25")
+speed = 50
+max_speed = 100
+jump_speed = 200
+base_gravity = 10
 
 [node name="GrappleVis" type="GPUParticles2D" parent="."]
 amount = 10
@@ -263,8 +267,8 @@ shape = SubResource("CapsuleShape2D_gcg1f")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="GrappleHolder" parent="." instance=ExtResource("3_m87yc")]
-grappledistance = 1250
-grapplespeed = 1250
+grappledistance = 150
+grapplespeed = 400
 
 [node name="Icon" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_ox2kd")

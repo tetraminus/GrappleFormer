@@ -10,7 +10,7 @@ var current_grapple = null
 func _ready():
 	ray.target_position = Vector2(grappledistance,0)
 	player = owner as Player
-	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
+	#DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	
 
 func _process(_delta):
