@@ -152,13 +152,7 @@ func _physics_process(_delta):
 	
 		
 
-	# zoom camera vector based on velocity
-	if abs(linear_velocity.x) > 100:
-		$Camera2D.zoom.x = max(lerp($Camera2D.zoom.x, 0.8 - abs(linear_velocity.x)*0.000001, .1), 0.025)
-		$Camera2D.zoom.y = max(lerp($Camera2D.zoom.y, 0.8 - abs(linear_velocity.x)*0.000001, .1), 0.025)
-	else:
-		$Camera2D.zoom.x = lerp($Camera2D.zoom.x, 1.0, .1)
-		$Camera2D.zoom.y = lerp($Camera2D.zoom.y, 1.0, .1)
+	
 
 	
 func _integrate_forces(state):

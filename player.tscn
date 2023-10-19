@@ -1,17 +1,45 @@
-[gd_scene load_steps=29 format=3 uid="uid://bss8gpldxhmhd"]
+[gd_scene load_steps=32 format=3 uid="uid://bss8gpldxhmhd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_2nm25"]
 [ext_resource type="Texture2D" uid="uid://3d1d2ku7nsja" path="res://assets/playerSpritesheet.png" id="3_khbbs"]
 [ext_resource type="PackedScene" uid="uid://dsf78g47rf8uj" path="res://grapple_holder.tscn" id="3_m87yc"]
+[ext_resource type="Shader" path="res://assets/SmoothPixel.gdshader" id="4_3jhdl"]
 [ext_resource type="Texture2D" uid="uid://ianc8st1baeu" path="res://assets/GrappleParticle.png" id="4_c4hxi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjgpb"]
+shader = ExtResource("4_3jhdl")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfvmk"]
 friction = 0.0
 absorbent = true
 
+[sub_resource type="Curve" id="Curve_rc3hk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.772249, 0.854691), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ocxf0"]
+curve = SubResource("Curve_rc3hk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_351ax"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+initial_velocity_max = 10.0
+angular_velocity_min = 252.26
+angular_velocity_max = 252.26
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_ocxf0")
+color = Color(0.207843, 0.941176, 1, 1)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gcg1f"]
-radius = 64.0
-height = 198.58
+radius = 4.0
+height = 16.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ox2kd"]
+shader = ExtResource("4_3jhdl")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t1e6o"]
 atlas = ExtResource("3_khbbs")
@@ -212,35 +240,24 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Curve" id="Curve_rc3hk"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.772249, 0.854691), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_ocxf0"]
-curve = SubResource("Curve_rc3hk")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_351ax"]
-particle_flag_align_y = true
-particle_flag_disable_z = true
-spread = 0.0
-gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
-initial_velocity_max = 10.0
-angular_velocity_min = 252.26
-angular_velocity_max = 252.26
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-scale_curve = SubResource("CurveTexture_ocxf0")
-color_ramp = SubResource("GradientTexture1D_q0ahq")
-
 [node name="player" type="RigidBody2D"]
+material = SubResource("ShaderMaterial_jjgpb")
 physics_material_override = SubResource("PhysicsMaterial_bfvmk")
 continuous_cd = 1
 can_sleep = false
 lock_rotation = true
 script = ExtResource("1_2nm25")
 
+[node name="GrappleVis" type="GPUParticles2D" parent="."]
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_351ax")
+texture = ExtResource("4_c4hxi")
+
+[node name="Line2D" type="Line2D" parent="GrappleVis"]
+width = 2.0
+default_color = Color(0.168627, 0.945098, 1, 1)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 24)
 shape = SubResource("CapsuleShape2D_gcg1f")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -250,16 +267,7 @@ grappledistance = 1250
 grapplespeed = 1250
 
 [node name="Icon" type="AnimatedSprite2D" parent="."]
-scale = Vector2(16, 16)
+material = SubResource("ShaderMaterial_ox2kd")
 sprite_frames = SubResource("SpriteFrames_cra6g")
 animation = &"idle 3"
 frame_progress = 0.455326
-
-[node name="GrappleVis" type="GPUParticles2D" parent="."]
-amount = 10
-process_material = SubResource("ParticleProcessMaterial_351ax")
-texture = ExtResource("4_c4hxi")
-
-[node name="Line2D" type="Line2D" parent="GrappleVis"]
-width = 2.0
-default_color = Color(0.360784, 0.360784, 1, 1)
