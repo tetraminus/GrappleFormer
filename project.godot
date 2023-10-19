@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=10240
-window/size/viewport_height=5760
+window/size/viewport_width=320
+window/size/viewport_height=140
 window/size/window_width_override=1152
 window/size/window_height_override=648
 window/stretch/mode="canvas_items"
@@ -64,10 +64,6 @@ grapplefling={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(687, 3),"global_position":Vector2(695, 87),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
-
-[physics]
-
-2d/solver/default_contact_bias=1.0
 
 [rendering]
 

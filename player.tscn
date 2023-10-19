@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://player.gd" id="1_2nm25"]
 [ext_resource type="Texture2D" uid="uid://3d1d2ku7nsja" path="res://assets/playerSpritesheet.png" id="3_khbbs"]
 [ext_resource type="PackedScene" uid="uid://dsf78g47rf8uj" path="res://grapple_holder.tscn" id="3_m87yc"]
+[ext_resource type="Texture2D" uid="uid://ianc8st1baeu" path="res://assets/GrappleParticle.png" id="4_c4hxi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfvmk"]
 friction = 0.0
@@ -221,21 +222,15 @@ curve = SubResource("Curve_rc3hk")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_351ax"]
 particle_flag_align_y = true
 particle_flag_disable_z = true
-spread = 180.0
+spread = 0.0
 gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
-initial_velocity_min = 153.28
-initial_velocity_max = 167.88
+initial_velocity_max = 10.0
 angular_velocity_min = 252.26
 angular_velocity_max = 252.26
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
-linear_accel_min = 13.14
-linear_accel_max = 13.14
-scale_min = 10.0
-scale_max = 10.0
 scale_curve = SubResource("CurveTexture_ocxf0")
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_afpco"]
+color_ramp = SubResource("GradientTexture1D_q0ahq")
 
 [node name="player" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_bfvmk")
@@ -251,8 +246,8 @@ shape = SubResource("CapsuleShape2D_gcg1f")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="GrappleHolder" parent="." instance=ExtResource("3_m87yc")]
-grappledistance = 10000
-grapplespeed = 10000
+grappledistance = 1250
+grapplespeed = 1250
 
 [node name="Icon" type="AnimatedSprite2D" parent="."]
 scale = Vector2(16, 16)
@@ -261,9 +256,10 @@ animation = &"idle 3"
 frame_progress = 0.455326
 
 [node name="GrappleVis" type="GPUParticles2D" parent="."]
-amount = 100
+amount = 10
 process_material = SubResource("ParticleProcessMaterial_351ax")
-texture = SubResource("PlaceholderTexture2D_afpco")
+texture = ExtResource("4_c4hxi")
 
 [node name="Line2D" type="Line2D" parent="GrappleVis"]
-default_color = Color(0.164706, 0, 1, 1)
+width = 2.0
+default_color = Color(0.360784, 0.360784, 1, 1)

@@ -3,13 +3,16 @@ extends RigidBody2D
 
 class_name Player
 
-var speed = 320
-var max_speed = 3200
-var jump_speed = 3200
-var base_gravity = 100
-var Slope_Threshold = deg_to_rad(50.0)
+@export var speed = 320
+@export var max_speed = 3200
+@export var jump_speed = 3200
+@export var base_gravity = 100
+@export var Slope_Threshold_Degrees = 50.0
+var Slope_Threshold = deg_to_rad(Slope_Threshold_Degrees)
 var base_scale
-var grappleForceScalar =  4
+@export var grappleForceScalar =  4
+
+
 
 
 var gravity
@@ -88,6 +91,8 @@ func _physics_process(_delta):
 	# move along the slope if on a slope
 	if on_ground and collision.get_angle() != 0:
 		# rotate the motion vector to the normal of the slope using the collision normal
+		print(collision.get_angle())
+
 		if grapplepoint == null:
 			motion = motion.rotated(collision.get_normal().angle() + PI/2)
 		
@@ -186,7 +191,8 @@ func _integrate_forces(state):
 	if test_move(transform, Vector2(0, 1), collision) and not sliding and abs(collision.get_angle()) > 0:
 		gravity = 0
 		#apply force to push player onto slope using the collision normal
-		apply_central_force (collision.get_normal() * -10000)
+		apply_central_force (collision.get_normal() * -6)
+		pass
 		
 	else:
 		gravity = base_gravity	
