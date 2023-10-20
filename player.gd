@@ -85,10 +85,8 @@ func _physics_process(_delta):
 	if grapplepoint == null:
 		if Input.is_action_pressed("move_right"):
 			motion.x += 1
-			animation.play("walk")
 		if Input.is_action_pressed("move_left"):
 			motion.x -= 1
-			animation.play("walk")
 			
 	if linear_velocity.x > 0:
 		$Icon.flip_h = false
@@ -111,10 +109,11 @@ func _physics_process(_delta):
 		
 	if linear_velocity.length() < 5:
 		
-		if randi_range(0,100) < 50:
-			animation.play("idle 1")
-		else:
-			animation.play("idle 2")
+		animation.play("idle 1")
+		
+	elif linear_velocity.y == 0:
+		animation.play("walk")
+
 		
 	if Input.is_action_just_pressed("move_down") and not slamming:
 		motion.y += 1
