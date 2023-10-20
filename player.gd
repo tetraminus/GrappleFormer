@@ -85,14 +85,12 @@ func _physics_process(_delta):
 	if grapplepoint == null:
 		if Input.is_action_pressed("move_right"):
 			motion.x += 1
+			$Icon.flip_h = false
 		if Input.is_action_pressed("move_left"):
 			motion.x -= 1
+			$Icon.flip_h = true
 			
-	if linear_velocity.x > 0:
-		$Icon.flip_h = false
-		
-	elif linear_velocity.x < 0:
-		$Icon.flip_h = true
+	
 		
 	
 	# move along the slope if on a slope
@@ -138,7 +136,7 @@ func _physics_process(_delta):
 
 	motion = motion * speed
 
-	if on_ground and Input.is_action_pressed("jump"):
+	if on_ground and Input.is_action_just_pressed("jump"):
 		on_ground = false
 		#if sliding on a slope jump away from the slope
 		if sliding:
@@ -190,6 +188,12 @@ func _integrate_forces(state):
 			#cancel any velocity in the opposite direction of the grapple point
 			var projectionvec = (state.linear_velocity.project((grapplepoint - global_position).rotated(PI/2)))
 			state.linear_velocity = projectionvec.normalized() * state.linear_velocity.length()
+		
+		if linear_velocity.x > 0:
+			$Icon.flip_h = false
+		
+		elif linear_velocity.x < 0:
+			$Icon.flip_h = true
 
 		if global_position.distance_to(grapplepoint) < grappledistance * 0.9:
 			grappledistance -= 5
