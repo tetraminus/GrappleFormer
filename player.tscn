@@ -11,6 +11,7 @@ shader = ExtResource("4_3jhdl")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfvmk"]
 friction = 0.0
+bounce = 11.8
 absorbent = true
 
 [sub_resource type="Curve" id="Curve_rc3hk"]

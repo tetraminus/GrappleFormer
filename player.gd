@@ -63,13 +63,13 @@ func _process(_delta):
 	
 	
 var coyote_timer = 0
-
+var testvec
 #2d rigidbody character controller
 func _physics_process(_delta):
 	
 	
 	var collision = KinematicCollision2D.new()
-	if test_move(transform, Vector2(0, 1), collision) and collision.get_angle() < Slope_Threshold:
+	if test_move(transform, Vector2(0, .1), collision) and collision.get_angle() < Slope_Threshold:
 		on_ground = true
 		coyote_timer = 0
 	else:
@@ -94,8 +94,11 @@ func _physics_process(_delta):
 		print(collision.get_angle())
 
 		if grapplepoint == null:
-			motion = motion.rotated(collision.get_normal().angle() + PI/2)
+			#motion = motion.rotated(clamp(collision.get_normal().angle() + PI/2, -Slope_Threshold, Slope_Threshold))
+			pass
 		
+		
+	testvec=motion
 		
 	
 
@@ -181,12 +184,11 @@ func _integrate_forces(state):
 		
 			
 
-
-	if test_move(transform, Vector2(0, 1), collision) and not sliding and abs(collision.get_angle()) > 0:
+	if test_move(transform, Vector2(0, .1), collision) and not sliding:
 		gravity = 0
 		#apply force to push player onto slope using the collision normal
-		apply_central_force (collision.get_normal() * -6)
-		pass
+		apply_central_force (collision.get_normal() * -10)
+		
 		
 	else:
 		gravity = base_gravity	
@@ -210,12 +212,8 @@ func grapplefling(flingspeed:float):
 	
 
 func _draw():
-	if false:
-		draw_line(Vector2.ZERO, grapplepoint - global_position, Color(1, 1, 1, 1), 2)
-		draw_circle(grapplepoint - global_position, 5, Color(1, 1, 1, 1))
-		draw_circle(grapplepoint - global_position, grappledistance, Color(1, 1, 1, 0.1))
-		#draw velocity vector
-		draw_line(Vector2.ZERO, linear_velocity, Color(1, 1, 1, 1), 2)
-		#draw rotated velocity vector
-		draw_line(Vector2.ZERO, linear_velocity.rotated(grapplepoint.angle_to(global_position) + PI/2), Color(1, 1, 1, 1), 2)
 	
+	#draw_line(Vector2.ZERO, testvec *50, Color(1, 1, 1, 1), 2)
+		
+		
+	pass
