@@ -23,11 +23,11 @@ var grapplepoint
 var grappledistance
 @onready var grappleline:Line2D = $GrappleVis/Line2D
 @onready var grappleparticles:GPUParticles2D = $GrappleVis
-
+var flinging
 
 func _ready():
 	base_scale = $Icon.global_scale
-
+	flinging = false
 
 	gravity_scale = 0
 	gravity = base_gravity
@@ -184,7 +184,7 @@ func _integrate_forces(state):
 		
 			
 
-	if test_move(transform, Vector2(0, .1), collision) and not sliding:
+	if test_move(transform, Vector2(0, .1), collision) and not sliding and not flinging:
 		gravity = 0
 		#apply force to push player onto slope using the collision normal
 		apply_central_force (collision.get_normal() * -10)
@@ -192,6 +192,8 @@ func _integrate_forces(state):
 		
 	else:
 		gravity = base_gravity	
+		if flinging:
+			flinging
 
 
 func setgrapple(point:Vector2, distance:float = -1):
@@ -207,6 +209,7 @@ func releasegrapple():
 
 func grapplefling(flingspeed:float):
 	if grapplepoint != null:
+		
 		apply_central_impulse((grapplepoint - global_position).normalized() * flingspeed)
 		releasegrapple()
 	
