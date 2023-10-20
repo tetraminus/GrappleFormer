@@ -194,6 +194,7 @@ func _integrate_forces(state):
 		
 		elif linear_velocity.x < 0:
 			$Icon.flip_h = true
+			
 
 		if global_position.distance_to(grapplepoint) < grappledistance * 0.9:
 			grappledistance -= 5
