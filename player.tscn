@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bss8gpldxhmhd"]
+[gd_scene load_steps=19 format=3 uid="uid://bss8gpldxhmhd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_2nm25"]
 [ext_resource type="Texture2D" uid="uid://3d1d2ku7nsja" path="res://assets/playerSpritesheet.png" id="3_khbbs"]
@@ -39,207 +39,108 @@ color = Color(0.207843, 0.941176, 1, 1)
 radius = 4.0
 height = 16.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ox2kd"]
-shader = ExtResource("4_3jhdl")
+[sub_resource type="Animation" id="Animation_spv2n"]
+resource_name = "idle 1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t1e6o"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(0, 0, 16, 16)
+[sub_resource type="Animation" id="Animation_j21ec"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1j1ml"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(0, 64, 16, 16)
+[sub_resource type="Animation" id="Animation_7vdks"]
+resource_name = "grappleStart"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 16, 17]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pg705"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(16, 64, 16, 16)
+[sub_resource type="Animation" id="Animation_dkbnc"]
+resource_name = "walk"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 18, 19, 20]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nrt64"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(16, 0, 16, 16)
+[sub_resource type="Animation" id="Animation_fqcjd"]
+resource_name = "grapple"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [17, 17]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1f5kp"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(32, 0, 16, 16)
+[sub_resource type="Animation" id="Animation_s7gxd"]
+resource_name = "idle 2"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 3, 4, 5]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_owlny"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_orw22"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(0, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tq27u"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(16, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yh8jc"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(32, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x2113"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(48, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d8ebe"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(0, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1y1pv"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(16, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sjtb0"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(32, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ncn0d"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(48, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0et1r"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(0, 48, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_540ur"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(16, 48, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2pdy8"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(32, 48, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_am87h"]
-atlas = ExtResource("3_khbbs")
-region = Rect2(48, 48, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_cra6g"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t1e6o")
-}, {
-"duration": 0.4,
-"texture": SubResource("AtlasTexture_1j1ml")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pg705")
-}],
-"loop": true,
-"name": &"grappleInitiate",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 6.0,
-"texture": SubResource("AtlasTexture_t1e6o")
-}, {
-"duration": 6.0,
-"texture": SubResource("AtlasTexture_nrt64")
-}],
-"loop": true,
-"name": &"idle 1",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1f5kp")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_t1e6o")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_owlny")
-}, {
-"duration": 0.4,
-"texture": SubResource("AtlasTexture_orw22")
-}, {
-"duration": 0.3,
-"texture": SubResource("AtlasTexture_tq27u")
-}, {
-"duration": 0.2,
-"texture": SubResource("AtlasTexture_yh8jc")
-}],
-"loop": true,
-"name": &"idle 2",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t1e6o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x2113")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d8ebe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1y1pv")
-}],
-"loop": true,
-"name": &"idle 3",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t1e6o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nrt64")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1f5kp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_owlny")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_orw22")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tq27u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yh8jc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x2113")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d8ebe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1y1pv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sjtb0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ncn0d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0et1r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_540ur")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2pdy8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_am87h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1j1ml")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pg705")
-}],
-"loop": true,
-"name": &"sprites",
-"speed": 5.0
-}]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cou6n"]
+_data = {
+"RESET": SubResource("Animation_j21ec"),
+"grapple": SubResource("Animation_fqcjd"),
+"grappleStart": SubResource("Animation_7vdks"),
+"idle 1": SubResource("Animation_spv2n"),
+"idle 2": SubResource("Animation_s7gxd"),
+"walk": SubResource("Animation_dkbnc")
+}
 
 [node name="player" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_jjgpb")
@@ -271,8 +172,13 @@ shape = SubResource("CapsuleShape2D_gcg1f")
 grappledistance = 250
 grapplespeed = 400
 
-[node name="Icon" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_ox2kd")
-sprite_frames = SubResource("SpriteFrames_cra6g")
-animation = &"idle 3"
-frame_progress = 0.455326
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("3_khbbs")
+hframes = 5
+vframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Icon")
+libraries = {
+"": SubResource("AnimationLibrary_cou6n")
+}

@@ -11,7 +11,7 @@ class_name Player
 var Slope_Threshold = deg_to_rad(Slope_Threshold_Degrees)
 var base_scale
 @export var grappleForceScalar =  4
-
+@onready var animation = $AnimationPlayer
 
 
 
@@ -53,6 +53,7 @@ func _process(_delta):
 		grappleline.visible = false
 	#put particles along line
 	if grapplepoint != null:
+		animation.play("grapple")
 		grappleparticles.emitting = true
 		grappleparticles.process_material.direction = Vector3((grapplepoint - global_position).normalized().x, (grapplepoint - global_position).normalized().y, 0)
 		grappleparticles.process_material.spread =10
@@ -84,8 +85,16 @@ func _physics_process(_delta):
 	if grapplepoint == null:
 		if Input.is_action_pressed("move_right"):
 			motion.x += 1
+			animation.play("walk")
 		if Input.is_action_pressed("move_left"):
 			motion.x -= 1
+			animation.play("walk")
+			
+	if linear_velocity.x > 0:
+		$Icon.flip_h = false
+		
+	elif linear_velocity.x < 0:
+		$Icon.flip_h = true
 		
 	
 	# move along the slope if on a slope
@@ -100,8 +109,12 @@ func _physics_process(_delta):
 		
 	testvec=motion
 		
-	
-
+	if linear_velocity.length() < 5:
+		
+		if randi_range(0,100) < 50:
+			animation.play("idle 1")
+		else:
+			animation.play("idle 2")
 		
 	if Input.is_action_just_pressed("move_down") and not slamming:
 		motion.y += 1
