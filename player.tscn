@@ -267,7 +267,7 @@ shape = SubResource("CapsuleShape2D_gcg1f")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="GrappleHolder" parent="." instance=ExtResource("3_m87yc")]
-grappledistance = 150
+grappledistance = 250
 grapplespeed = 400
 
 [node name="Icon" type="AnimatedSprite2D" parent="."]
