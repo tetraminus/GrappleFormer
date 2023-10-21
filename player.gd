@@ -251,6 +251,8 @@ func releasegrapple():
 func grapplefling(flingspeed:float):
 	if grapplepoint != null:
 		
+		linear_velocity.x /= 2
+		linear_velocity.y = 0
 		apply_central_impulse((grapplepoint - global_position).normalized() * flingspeed)
 		releasegrapple()
 	

@@ -172,7 +172,7 @@ shape = SubResource("CapsuleShape2D_gcg1f")
 
 [node name="GrappleHolder" parent="." instance=ExtResource("3_m87yc")]
 grappledistance = 250
-grapplespeed = 400
+grapplespeed = 300
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture = ExtResource("3_khbbs")
