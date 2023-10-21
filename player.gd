@@ -55,12 +55,19 @@ func _process(_delta):
 	#put particles along line
 	if grapplepoint != null:
 		animation.play("grapple")
+		if grapplepoint.x - global_position.x != 0 and linear_velocity.y != 0 and not on_ground:
+			$Icon.rotation = atan(((grapplepoint.y - global_position.y)) / ((grapplepoint.x - global_position.x))) +  (sign(grapplepoint.x - global_position.x) * 3.1415/2)
+		
+		elif on_ground:
+			$Icon.rotation = 0
+		
 		grappleparticles.emitting = true
 		grappleparticles.process_material.direction = Vector3((grapplepoint - global_position).normalized().x, (grapplepoint - global_position).normalized().y, 0)
 		grappleparticles.process_material.spread =10
 		
 	else:
 		grappleparticles.emitting = false
+		$Icon.rotation = 0
 		
 	
 	
