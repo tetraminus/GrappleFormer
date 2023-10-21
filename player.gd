@@ -24,6 +24,7 @@ var grappledistance
 @onready var grappleline:Line2D = $GrappleVis/Line2D
 @onready var grappleparticles:GPUParticles2D = $GrappleVis
 var flinging
+var variable_jump
 
 func _ready():
 	base_scale = $Icon.global_scale
@@ -136,14 +137,19 @@ func _physics_process(_delta):
 
 	motion = motion * speed
 
+
 	if on_ground and Input.is_action_just_pressed("jump"):
 		on_ground = false
+		variable_jump = 9
 		#if sliding on a slope jump away from the slope
 		if sliding:
 			motion.y = -jump_speed*1.5
 			motion.x = -sign(motion.x)*jump_speed*1.5
-		else:
-			motion.y = -jump_speed
+		
+	
+	if Input.is_action_pressed("jump") and sliding == false and variable_jump != 0:
+		motion.y -= (jump_speed * variable_jump) / 40
+		variable_jump -= 1
 		
 	motion.y += gravity
 
@@ -173,9 +179,19 @@ func _integrate_forces(state):
 
 	var collision = KinematicCollision2D.new()
 
-	if on_ground and not sliding:
-		state.linear_velocity.x = lerp(linear_velocity.x,0.0, 0.1)
-		state.linear_velocity.y = lerp(linear_velocity.y,0.0, 0.1)
+#TODO
+	if on_ground:
+		if  not sliding:
+			state.linear_velocity.x = lerp(linear_velocity.x,0.0, 0.3)
+			state.linear_velocity.y = lerp(linear_velocity.y,0.0, 0.1)
+		else: 
+			state.linear_velocity.x = lerp(linear_velocity.x,0.0, 0.05)
+			
+	elif abs(linear_velocity.x) > 1 and grappledistance == null:
+		state.linear_velocity.x = lerp(linear_velocity.x,0.0, 1/abs(linear_velocity.x * linear_velocity.x * linear_velocity.x))
+	
+	elif grappledistance == null:
+		state.linear_velocity.x = lerp(linear_velocity.x,0.0, 1)
 
 	# grapple logic
 	if grappledistance != null and grapplepoint != null:
@@ -215,6 +231,7 @@ func _integrate_forces(state):
 
 func setgrapple(point:Vector2, distance:float = -1):
 	grapplepoint = point
+	
 	if distance != -1:
 		grappledistance = distance
 	else:

@@ -29,14 +29,13 @@ func _input(_event):
 			var distance = ray.get_collision_point().distance_to(owner.position)
 
 			player.setgrapple(point, distance)
+			
 
 	if Input.is_action_just_released("grapple"):
 		player.releasegrapple()
 	
 	if Input.is_action_just_pressed("grapplefling"):
 		player.grapplefling(grapplespeed)
-
-
 
 			
 			
