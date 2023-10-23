@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3gt3r3507iaj"
-path="res://.godot/imported/basicWoodTileset.png-172828d2588976eb0c347d28c7070325.ctex"
+uid="uid://ymwrtt4o7mki"
+path="res://.godot/imported/flingIndicator.png-73b5bfdfd348156c3e22292c582f11e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rooms/Untitled/basicWoodTileset.png"
-dest_files=["res://.godot/imported/basicWoodTileset.png-172828d2588976eb0c347d28c7070325.ctex"]
+source_file="res://assets/flingIndicator.png"
+dest_files=["res://.godot/imported/flingIndicator.png-73b5bfdfd348156c3e22292c582f11e4.ctex"]
 
 [params]
 

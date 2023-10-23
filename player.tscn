@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://bss8gpldxhmhd"]
+[gd_scene load_steps=23 format=3 uid="uid://bss8gpldxhmhd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_2nm25"]
 [ext_resource type="Texture2D" uid="uid://3d1d2ku7nsja" path="res://assets/playerSpritesheet.png" id="3_khbbs"]
 [ext_resource type="PackedScene" uid="uid://dsf78g47rf8uj" path="res://grapple_holder.tscn" id="3_m87yc"]
 [ext_resource type="Shader" path="res://assets/SmoothPixel.gdshader" id="4_3jhdl"]
 [ext_resource type="Texture2D" uid="uid://ianc8st1baeu" path="res://assets/GrappleParticle.png" id="4_c4hxi"]
+[ext_resource type="Texture2D" uid="uid://ymwrtt4o7mki" path="res://assets/flingIndicator.png" id="6_0vbwt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjgpb"]
 shader = ExtResource("4_3jhdl")
@@ -116,6 +117,21 @@ tracks/0/keys = {
 "values": [0, 2, 3, 4, 5, 6, 2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_a2ywa"]
+resource_name = "idle 3"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 7, 8, 9]
+}
+
 [sub_resource type="Animation" id="Animation_dkbnc"]
 resource_name = "walk"
 length = 0.8
@@ -132,21 +148,6 @@ tracks/0/keys = {
 "values": [0, 18, 19, 20]
 }
 
-[sub_resource type="Animation" id="Animation_a2ywa"]
-resource_name = "idle 3"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 7, 8, 9]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cou6n"]
 _data = {
 "RESET": SubResource("Animation_j21ec"),
@@ -156,6 +157,26 @@ _data = {
 "idle 2": SubResource("Animation_s7gxd"),
 "idle 3": SubResource("Animation_a2ywa"),
 "walk": SubResource("Animation_dkbnc")
+}
+
+[sub_resource type="Animation" id="Animation_6a68m"]
+resource_name = "flingRecharge"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flingIndicator:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f2sbl"]
+_data = {
+"flingRecharge": SubResource("Animation_6a68m")
 }
 
 [node name="player" type="RigidBody2D"]
@@ -198,4 +219,20 @@ vframes = 5
 root_node = NodePath("../Icon")
 libraries = {
 "": SubResource("AnimationLibrary_cou6n")
+}
+
+[node name="LaunchCooldown" type="Timer" parent="."]
+
+[node name="flingIndicator" type="Sprite2D" parent="."]
+z_index = 5
+position = Vector2(15, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_0vbwt")
+hframes = 2
+vframes = 3
+frame = 5
+
+[node name="AnimationFling" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_f2sbl")
 }

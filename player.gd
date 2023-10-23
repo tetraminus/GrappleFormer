@@ -13,6 +13,9 @@ var base_scale
 @export var grappleForceScalar =  4
 @onready var animation = $AnimationPlayer
 
+@onready var launch_cooldown = $LaunchCooldown
+@onready var fling_indicator = $flingIndicator
+@onready var animation_fling = $AnimationFling
 
 
 var gravity
@@ -24,9 +27,10 @@ var grappledistance
 @onready var grappleline:Line2D = $GrappleVis/Line2D
 @onready var grappleparticles:GPUParticles2D = $GrappleVis
 var flinging
-var variable_jump
+var variable_jump = 0
 var idlePlaying = true
 var doubleIdleSpecial = true
+var launchRefreshed = true
 
 func _ready():
 	base_scale = $Icon.global_scale
@@ -34,8 +38,14 @@ func _ready():
 
 	gravity_scale = 0
 	gravity = base_gravity
+	launch_cooldown.timeout.connect(_launchReady)
 	animation.animation_finished.connect(_on_anim_ended)
+
+
+func _launchReady():
 	
+	launchRefreshed = true
+
 func _on_anim_ended(_anim):
 	if idlePlaying == true:
 		
@@ -90,7 +100,9 @@ func _process(_delta):
 		grappleparticles.emitting = false
 		$Icon.rotation = 0
 		
-	
+	if on_ground:
+		launchRefreshed = true
+		launch_cooldown.stop()
 	
 var coyote_timer = 0
 var testvec
@@ -294,12 +306,15 @@ func releasegrapple():
 	grappledistance = null
 
 func grapplefling(flingspeed:float):
-	if grapplepoint != null:
+	if grapplepoint != null and launchRefreshed:
 		
 		linear_velocity.x /= 2
 		linear_velocity.y = 0
 		apply_central_impulse((grapplepoint - global_position).normalized() * flingspeed)
 		releasegrapple()
+		launch_cooldown.start()
+		launchRefreshed = false
+		animation_fling.play("flingRecharge")
 	
 
 func _draw():
