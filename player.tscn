@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bss8gpldxhmhd"]
+[gd_scene load_steps=20 format=3 uid="uid://bss8gpldxhmhd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_2nm25"]
 [ext_resource type="Texture2D" uid="uid://3d1d2ku7nsja" path="res://assets/playerSpritesheet.png" id="3_khbbs"]
@@ -103,7 +103,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_s7gxd"]
 resource_name = "idle 2"
-length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -111,10 +110,10 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.55, 0.6, 0.7, 0.75, 0.85),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 2, 3, 4, 5]
+"values": [0, 2, 3, 4, 5, 6, 2, 3, 4, 5]
 }
 
 [sub_resource type="Animation" id="Animation_dkbnc"]
@@ -133,6 +132,21 @@ tracks/0/keys = {
 "values": [0, 18, 19, 20]
 }
 
+[sub_resource type="Animation" id="Animation_a2ywa"]
+resource_name = "idle 3"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 7, 8, 9]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cou6n"]
 _data = {
 "RESET": SubResource("Animation_j21ec"),
@@ -140,6 +154,7 @@ _data = {
 "grappleStart": SubResource("Animation_7vdks"),
 "idle 1": SubResource("Animation_spv2n"),
 "idle 2": SubResource("Animation_s7gxd"),
+"idle 3": SubResource("Animation_a2ywa"),
 "walk": SubResource("Animation_dkbnc")
 }
 

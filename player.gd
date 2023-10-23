@@ -25,6 +25,8 @@ var grappledistance
 @onready var grappleparticles:GPUParticles2D = $GrappleVis
 var flinging
 var variable_jump
+var idlePlaying = true
+var doubleIdleSpecial = true
 
 func _ready():
 	base_scale = $Icon.global_scale
@@ -32,6 +34,25 @@ func _ready():
 
 	gravity_scale = 0
 	gravity = base_gravity
+	animation.animation_finished.connect(_on_anim_ended)
+	
+func _on_anim_ended(_anim):
+	if idlePlaying == true:
+		
+		if randi_range(1,10) == 5 and doubleIdleSpecial == false:
+		
+			animation.play("idle 2")
+			doubleIdleSpecial = true
+			
+		elif randi_range(1,10) == 5 and doubleIdleSpecial == false:
+			
+			animation.play("idle 3")
+			doubleIdleSpecial = true
+			
+		else:
+			
+			animation.play("idle 1")
+			doubleIdleSpecial = false
 	
 func _process(_delta):
 	if sliding:
@@ -104,7 +125,7 @@ func _physics_process(_delta):
 	# move along the slope if on a slope
 	if on_ground and collision.get_angle() != 0:
 		# rotate the motion vector to the normal of the slope using the collision normal
-		print(collision.get_angle())
+		#print(collision.get_angle())
 
 		if grapplepoint == null:
 			#motion = motion.rotated(clamp(collision.get_normal().angle() + PI/2, -Slope_Threshold, Slope_Threshold))
@@ -115,10 +136,23 @@ func _physics_process(_delta):
 		
 	if linear_velocity.length() < 5:
 		
-		animation.play("idle 1")
+		if idlePlaying == false:
+			animation.stop()
+			animation.play("idle 1")
 		
-	elif linear_velocity.y == 0:
+		idlePlaying = true
+		
+		
+	elif on_ground:
+		
 		animation.play("walk")
+
+				
+		
+	else:
+		idlePlaying = false
+		
+		
 
 		
 	if Input.is_action_just_pressed("move_down") and not slamming:
@@ -145,7 +179,7 @@ func _physics_process(_delta):
 	motion = motion * speed
 
 
-	if on_ground and Input.is_action_just_pressed("jump"):
+	if on_ground and Input.is_action_pressed("jump"):
 		on_ground = false
 		variable_jump = 9
 		#if sliding on a slope jump away from the slope
@@ -199,7 +233,21 @@ func _integrate_forces(state):
 	
 	elif grappledistance == null:
 		state.linear_velocity.x = lerp(linear_velocity.x,0.0, 1)
-
+	
+	if grapplepoint == null or not on_ground:
+		
+		
+		if linear_velocity.x > 1:
+			$Icon.flip_h = false
+		
+		elif linear_velocity.x < -1:
+			$Icon.flip_h = true
+				
+			
+		else:
+			pass
+			
+			
 	# grapple logic
 	if grappledistance != null and grapplepoint != null:
 		# dont allow player to leave grapple radius
@@ -212,11 +260,8 @@ func _integrate_forces(state):
 			var projectionvec = (state.linear_velocity.project((grapplepoint - global_position).rotated(PI/2)))
 			state.linear_velocity = projectionvec.normalized() * state.linear_velocity.length()
 		
-		if linear_velocity.x > 0:
-			$Icon.flip_h = false
-		
-		elif linear_velocity.x < 0:
-			$Icon.flip_h = true
+	
+			#THIS SHOULD FLIP THE PLAYER TO POINT TOWARDS THE CURSOR
 			
 
 		if global_position.distance_to(grapplepoint) < grappledistance * 0.9:
