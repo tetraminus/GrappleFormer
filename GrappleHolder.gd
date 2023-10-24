@@ -3,8 +3,8 @@ extends Node2D
 @export var grappledistance:int
 @export var grapplespeed:int
 var player
+@onready var fling_indicator = %flingIndicator
 
-var current_grapple = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,7 +15,17 @@ func _ready():
 
 func _process(_delta):
 	look_at(get_global_mouse_position())
+	if player.grapplepoint == null:
+		if ray.is_colliding():
+			fling_indicator.global_position = ray.get_collision_point()
+			fling_indicator.show()
+		else:
+			fling_indicator.hide()
+	else:
+		fling_indicator.global_position = player.grapplepoint
 	
+		
+		
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
