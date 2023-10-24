@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bss8gpldxhmhd"]
+[gd_scene load_steps=23 format=3 uid="uid://bss8gpldxhmhd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_2nm25"]
 [ext_resource type="Texture2D" uid="uid://3d1d2ku7nsja" path="res://assets/playerSpritesheet.png" id="3_khbbs"]
@@ -6,7 +6,6 @@
 [ext_resource type="Shader" path="res://assets/SmoothPixel.gdshader" id="4_3jhdl"]
 [ext_resource type="Texture2D" uid="uid://ianc8st1baeu" path="res://assets/GrappleParticle.png" id="4_c4hxi"]
 [ext_resource type="Texture2D" uid="uid://ymwrtt4o7mki" path="res://assets/flingIndicator.png" id="6_0vbwt"]
-[ext_resource type="Script" path="res://flingIndicator.gd" id="7_g0akj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjgpb"]
 shader = ExtResource("4_3jhdl")
@@ -191,6 +190,8 @@ speed = 25
 max_speed = 100
 jump_speed = 200
 base_gravity = 10
+Slope_Threshold_Degrees = null
+grappleForceScalar = null
 
 [node name="GrappleVis" type="GPUParticles2D" parent="."]
 amount = 10
@@ -232,7 +233,6 @@ texture = ExtResource("6_0vbwt")
 hframes = 2
 vframes = 3
 frame = 5
-script = ExtResource("7_g0akj")
 
 [node name="AnimationFling" type="AnimationPlayer" parent="."]
 libraries = {

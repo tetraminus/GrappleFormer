@@ -65,6 +65,8 @@ func _on_anim_ended(_anim):
 			doubleIdleSpecial = false
 	
 func _process(_delta):
+	
+	
 	if sliding:
 		$Icon.global_scale.y = base_scale.y*0.9
 		$Icon.global_scale.x = base_scale.x*1.1
@@ -85,12 +87,14 @@ func _process(_delta):
 		grappleline.visible = false
 	#put particles along line
 	if grapplepoint != null:
-		animation.play("grapple")
+		
 		if grapplepoint.x - global_position.x != 0 and linear_velocity.y != 0 and not on_ground:
 			$Icon.rotation = atan(((grapplepoint.y - global_position.y)) / ((grapplepoint.x - global_position.x))) +  (sign(grapplepoint.x - global_position.x) * 3.1415/2)
+			animation.play("grapple")
 		
 		elif on_ground:
 			$Icon.rotation = 0
+			animation.play("grappleStart")
 		
 		grappleparticles.emitting = true
 		grappleparticles.process_material.direction = Vector3((grapplepoint - global_position).normalized().x, (grapplepoint - global_position).normalized().y, 0)
@@ -312,6 +316,8 @@ func grapplefling(flingspeed:float):
 		linear_velocity.y = 0
 		apply_central_impulse((grapplepoint - global_position).normalized() * flingspeed)
 		releasegrapple()
+		
+
 		launch_cooldown.start()
 		launchRefreshed = false
 		animation_fling.play("flingRecharge")
