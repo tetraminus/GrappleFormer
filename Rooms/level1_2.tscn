@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://yaf7o5kummqm"]
 
-[ext_resource type="PackedScene" uid="uid://bss8gpldxhmhd" path="res://player.tscn" id="1_6qo0k"]
-[ext_resource type="Texture2D" uid="uid://c1mu6a3jxylp0" path="res://Rooms/Untitled/tilesets/basicStoneTileset.png" id="2_3yy75"]
+[ext_resource type="PackedScene" uid="uid://bss8gpldxhmhd" path="res://player.tscn" id="1_54wbt"]
+[ext_resource type="Texture2D" uid="uid://c1mu6a3jxylp0" path="res://Rooms/Untitled/tilesets/basicStoneTileset.png" id="2_mmk88"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_044mk"]
-texture = ExtResource("2_3yy75")
+texture = ExtResource("2_mmk88")
 texture_region_size = Vector2i(8, 8)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -217,7 +217,7 @@ sources/0 = SubResource("TileSetAtlasSource_044mk")
 
 [node name="level1_2" type="Node2D"]
 
-[node name="player" parent="." instance=ExtResource("1_6qo0k")]
+[node name="player" parent="." instance=ExtResource("1_54wbt")]
 
 [node name="TileMap" type="TileMap" parent="."]
 rotation = 0.00100954

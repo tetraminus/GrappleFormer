@@ -104,9 +104,12 @@ func _process(_delta):
 		grappleparticles.emitting = false
 		$Icon.rotation = 0
 		
-	if on_ground:
-		launchRefreshed = true
+		
+	if get_colliding_bodies().size() > 0:
 		launch_cooldown.stop()
+		launchRefreshed = true
+		
+	
 	
 var coyote_timer = 0
 var testvec
