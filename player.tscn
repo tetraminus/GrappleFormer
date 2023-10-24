@@ -6,7 +6,6 @@
 [ext_resource type="Shader" path="res://assets/SmoothPixel.gdshader" id="4_3jhdl"]
 [ext_resource type="Texture2D" uid="uid://ianc8st1baeu" path="res://assets/GrappleParticle.png" id="4_c4hxi"]
 [ext_resource type="Texture2D" uid="uid://ymwrtt4o7mki" path="res://assets/flingIndicator.png" id="6_0vbwt"]
-[ext_resource type="Script" path="res://flingIndicator.gd" id="7_g0akj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjgpb"]
 shader = ExtResource("4_3jhdl")
@@ -160,6 +159,23 @@ _data = {
 "walk": SubResource("Animation_dkbnc")
 }
 
+[sub_resource type="GDScript" id="GDScript_nxqsk"]
+script/source = "extends Sprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	global_position = get_global_mouse_position()
+	
+	
+"
+
 [sub_resource type="Animation" id="Animation_6a68m"]
 resource_name = "flingRecharge"
 tracks/0/type = "value"
@@ -232,7 +248,7 @@ texture = ExtResource("6_0vbwt")
 hframes = 2
 vframes = 3
 frame = 5
-script = ExtResource("7_g0akj")
+script = SubResource("GDScript_nxqsk")
 
 [node name="AnimationFling" type="AnimationPlayer" parent="."]
 libraries = {
