@@ -18,11 +18,16 @@ func _process(_delta):
 	if player.grapplepoint == null:
 		if ray.is_colliding():
 			fling_indicator.global_position = ray.get_collision_point()
+			
 			fling_indicator.show()
 		else:
+			
 			fling_indicator.hide()
+			
 	else:
 		fling_indicator.global_position = player.grapplepoint
+		
+		fling_indicator.show()
 	
 		
 		

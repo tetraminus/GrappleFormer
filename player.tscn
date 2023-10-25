@@ -1,11 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://bss8gpldxhmhd"]
+[gd_scene load_steps=24 format=3 uid="uid://bss8gpldxhmhd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_2nm25"]
 [ext_resource type="Texture2D" uid="uid://3d1d2ku7nsja" path="res://assets/playerSpritesheet.png" id="3_khbbs"]
 [ext_resource type="PackedScene" uid="uid://dsf78g47rf8uj" path="res://grapple_holder.tscn" id="3_m87yc"]
 [ext_resource type="Shader" path="res://assets/SmoothPixel.gdshader" id="4_3jhdl"]
 [ext_resource type="Texture2D" uid="uid://ianc8st1baeu" path="res://assets/GrappleParticle.png" id="4_c4hxi"]
-[ext_resource type="Texture2D" uid="uid://ymwrtt4o7mki" path="res://assets/flingIndicator.png" id="6_0vbwt"]
+[ext_resource type="Texture2D" uid="uid://bua54am0736fl" path="res://assets/GrappleindicatorParticle.png" id="6_77eir"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjgpb"]
 shader = ExtResource("4_3jhdl")
@@ -159,25 +159,29 @@ _data = {
 "walk": SubResource("Animation_dkbnc")
 }
 
-[sub_resource type="Animation" id="Animation_6a68m"]
-resource_name = "flingRecharge"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("flingIndicator:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
+[sub_resource type="Curve" id="Curve_o0uhu"]
+min_value = -0.5
+max_value = 0.5
+_data = [Vector2(0, 0.5), 0.0, 2.08165e-12, 0, 0, Vector2(0.488933, 0.5), 0.0, 0.0, 0, 0, Vector2(0.50664, -0.5), 0.0, 0.0, 0, 0, Vector2(1, -0.5), 0.0, 0.0, 1, 0]
+point_count = 4
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_f2sbl"]
-_data = {
-"flingRecharge": SubResource("Animation_6a68m")
-}
+[sub_resource type="CurveTexture" id="CurveTexture_00fio"]
+curve = SubResource("Curve_o0uhu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g4m8a"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 11.0
+emission_ring_inner_radius = 7.0
+particle_flag_disable_z = true
+direction = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+spread = 0.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+orbit_velocity_curve = SubResource("CurveTexture_00fio")
+color = Color(0.168627, 0.945098, 1, 1)
 
 [node name="player" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_jjgpb")
@@ -225,16 +229,12 @@ libraries = {
 
 [node name="LaunchCooldown" type="Timer" parent="."]
 
-[node name="flingIndicator" type="Sprite2D" parent="."]
+[node name="flingIndicator" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
 z_index = 5
-position = Vector2(15, 0)
-texture = ExtResource("6_0vbwt")
-hframes = 2
-vframes = 3
-frame = 5
-
-[node name="AnimationFling" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_f2sbl")
-}
+position = Vector2(1, 0)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_g4m8a")
+texture = ExtResource("6_77eir")
+visibility_rect = Rect2(-12.9145, -12.9383, 25.7894, 25.7813)
+local_coords = true

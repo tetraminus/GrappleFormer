@@ -15,7 +15,7 @@ var base_scale
 
 @onready var launch_cooldown = $LaunchCooldown
 @onready var fling_indicator = $flingIndicator
-@onready var animation_fling = $AnimationFling
+
 
 
 var gravity
@@ -45,6 +45,7 @@ func _ready():
 func _launchReady():
 	
 	launchRefreshed = true
+	fling_indicator.emitting = true
 
 func _on_anim_ended(_anim):
 	if idlePlaying == true:
@@ -108,6 +109,7 @@ func _process(_delta):
 	if get_colliding_bodies().size() > 0:
 		launch_cooldown.stop()
 		launchRefreshed = true
+		fling_indicator.emitting = true
 		
 	
 	
@@ -229,10 +231,6 @@ func _physics_process(_delta):
 		camera_offset.y += linear_velocity.y * 0.0001
 	$Camera2D.position = lerp($Camera2D.position, Vector2.ZERO + camera_offset, .1)
 	
-		
-
-	
-
 	
 func _integrate_forces(state):
 	# prevent slipping down slopes while standing still but allow sliding
@@ -323,7 +321,10 @@ func grapplefling(flingspeed:float):
 
 		launch_cooldown.start()
 		launchRefreshed = false
-		animation_fling.play("flingRecharge")
+		fling_indicator.emitting = false
+		fling_indicator.lifetime = 0.1
+		
+		
 	
 
 func _draw():
