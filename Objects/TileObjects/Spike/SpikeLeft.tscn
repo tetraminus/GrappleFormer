@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ks0qbktptly7"]
+
+[ext_resource type="PackedScene" uid="uid://c2ufp4g2sh4h4" path="res://Objects/TileObjects/Spike/SpikeUp.tscn" id="1_uygw8"]
+
+[node name="Spike" instance=ExtResource("1_uygw8")]
+rotation = -1.5708

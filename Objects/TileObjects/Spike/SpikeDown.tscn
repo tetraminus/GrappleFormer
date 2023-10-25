@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccdsqa65hhaus"]
+
+[ext_resource type="PackedScene" uid="uid://c2ufp4g2sh4h4" path="res://Objects/TileObjects/Spike/SpikeUp.tscn" id="1_llakt"]
+
+[node name="Spike" instance=ExtResource("1_llakt")]

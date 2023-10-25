@@ -16,7 +16,7 @@ var base_scale
 @onready var launch_cooldown = $LaunchCooldown
 @onready var fling_indicator = $flingIndicator
 
-
+var current_spawnpoint
 
 var gravity
 var on_ground = false
@@ -40,6 +40,10 @@ func _ready():
 	gravity = base_gravity
 	launch_cooldown.timeout.connect(_launchReady)
 	animation.animation_finished.connect(_on_anim_ended)
+
+	
+func SetSpawnpoint(spawnpoint:Node2D) -> void:
+	current_spawnpoint = spawnpoint
 
 
 func _launchReady():
@@ -111,8 +115,6 @@ func _process(_delta):
 		launchRefreshed = true
 		fling_indicator.emitting = true
 		
-	
-	
 var coyote_timer = 0
 var testvec
 #2d rigidbody character controller
@@ -229,15 +231,14 @@ func _physics_process(_delta):
 	if abs(linear_velocity.x) > 100:
 		camera_offset.x += linear_velocity.x * 0.0001
 		camera_offset.y += linear_velocity.y * 0.0001
-	$Camera2D.position = lerp($Camera2D.position, Vector2.ZERO + camera_offset, .1)
-	
+	$Camera2D.position = lerp($Camera2D.position, Vector2.ZERO + camera_offset, .1)	
 	
 func _integrate_forces(state):
 	# prevent slipping down slopes while standing still but allow sliding
 
 	var collision = KinematicCollision2D.new()
 
-#TODO
+	#TODO
 	if on_ground:
 		if  not sliding:
 			state.linear_velocity.x = lerp(linear_velocity.x,0.0, 0.3)
@@ -297,8 +298,7 @@ func _integrate_forces(state):
 		if flinging:
 			flinging
 
-
-func setgrapple(point:Vector2, distance:float = -1):
+func setgrapple(point:Vector2, distance:float = -1)-> void:
 	grapplepoint = point
 	
 	if distance != -1:
@@ -306,11 +306,11 @@ func setgrapple(point:Vector2, distance:float = -1):
 	else:
 		grappledistance = global_position.distance_to(grapplepoint)
 
-func releasegrapple():
+func releasegrapple()-> void:
 	grapplepoint = null
 	grappledistance = null
 
-func grapplefling(flingspeed:float):
+func grapplefling(flingspeed:float)-> void:
 	if grapplepoint != null and launchRefreshed:
 		
 		linear_velocity.x /= 2
@@ -324,12 +324,25 @@ func grapplefling(flingspeed:float):
 		fling_indicator.emitting = false
 		fling_indicator.lifetime = 0.1
 		
-		
-	
-
-func _draw():
+func _draw()-> void:
 	
 	#draw_line(Vector2.ZERO, testvec *50, Color(1, 1, 1, 1), 2)
 		
 		
 	pass
+
+func die() -> void:
+	print("player died")
+	set_physics_process(false)
+	var zoopTween = get_tree().create_tween()
+	grappledistance = null
+	grapplepoint = null
+
+	zoopTween.tween_property(self,"global_position", current_spawnpoint.position,.3)
+	await zoopTween.finished
+	linear_velocity = Vector2.ZERO
+	set_physics_process(true)
+	
+
+
+
