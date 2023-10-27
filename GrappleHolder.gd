@@ -17,7 +17,7 @@ func _process(_delta):
 	look_at(get_global_mouse_position())
 	if player.grapplepoint == null:
 		if ray.is_colliding():
-			fling_indicator.global_position = ray.get_collision_point()
+			fling_indicator.global_position = fling_indicator.global_position.lerp(ray.get_collision_point(), 0.5)
 			
 			fling_indicator.show()
 		else:

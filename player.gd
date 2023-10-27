@@ -262,10 +262,6 @@ func _integrate_forces(state):
 			$Icon.flip_h = true
 				
 			
-		else:
-			pass
-			
-			
 	# grapple logic
 	if grappledistance != null and grapplepoint != null:
 		# dont allow player to leave grapple radius
