@@ -38,7 +38,7 @@ func _input(_event):
 	
 
 
-	if Input.is_action_just_pressed("grapple") and not player.dead:
+	if Input.is_action_just_pressed("grapple"):
 		ray.force_raycast_update()
 		if ray.is_colliding():
 			var point = ray.get_collision_point()

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Objects/Reusable/KillBox.gd" id="2_bro16"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u14js"]
-size = Vector2(6, 2)
+size = Vector2(3, 4)
 
 [node name="Spike" type="Node2D"]
 
@@ -15,5 +15,5 @@ texture = ExtResource("1_xqebg")
 script = ExtResource("2_bro16")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 3)
+position = Vector2(-0.5, 2)
 shape = SubResource("RectangleShape2D_u14js")

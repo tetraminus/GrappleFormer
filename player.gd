@@ -15,7 +15,6 @@ var base_scale
 
 @onready var launch_cooldown = $LaunchCooldown
 @onready var fling_indicator = $flingIndicator
-var dead = false
 
 var current_spawnpoint
 
@@ -334,13 +333,11 @@ func die() -> void:
 	var zoopTween = get_tree().create_tween()
 	grappledistance = null
 	grapplepoint = null
-	dead = true
 
-	zoopTween.tween_property(self,"global_position", current_spawnpoint.global_position,.3)
+	zoopTween.tween_property(self,"global_position", current_spawnpoint.position,.3)
 	await zoopTween.finished
 	linear_velocity = Vector2.ZERO
 	set_physics_process(true)
-	dead = false
 	
 
 

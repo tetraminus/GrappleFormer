@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://f4knexeppryv"]
 
-[ext_resource type="Script" path="res://Objects/Respawn/SpawnPoint.gd" id="1_xr1tl"]
+[ext_resource type="Script" path="res://Objects/TileObjects/Respawn/SpawnPoint.gd" id="1_dwofc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1aq4v"]
 size = Vector2(8, 8)
 
-[node name="Spawn" type="Node2D" groups=["Spawnpoints"]]
-script = ExtResource("1_xr1tl")
+[node name="Spawn" type="Node2D"]
 
 [node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("1_dwofc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_1aq4v")
