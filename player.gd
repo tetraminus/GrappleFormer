@@ -159,6 +159,8 @@ func _physics_process(_delta):
 		
 	if linear_velocity.length() < 5:
 		
+		linear_velocity.x = 0
+		
 		if idlePlaying == false:
 			animation.stop()
 			animation.play("idle 1")
@@ -338,6 +340,7 @@ func die() -> void:
 	await zoopTween.finished
 	linear_velocity = Vector2.ZERO
 	set_physics_process(true)
+	releasegrapple()
 	
 
 
