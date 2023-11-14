@@ -40,9 +40,19 @@ func _input(_event):
 
 	if Input.is_action_just_pressed("grapple"):
 		ray.force_raycast_update()
+
 		
 		if true:
 			var point = fling_pos
+
+		if ray.is_colliding():
+			if ray.get_collision_mask_value(3):
+				return
+			
+			
+			
+			var distance = ray.get_collision_point().distance_to(owner.position)
+
 
 			var distance = fling_pos.distance_to(owner.position)
 			
