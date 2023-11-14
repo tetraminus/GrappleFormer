@@ -17,10 +17,10 @@ func _ready():
 func _process(_delta):
 
 	look_at(get_global_mouse_position())
-
+	if ray.is_colliding():
+		fling_pos = ray.get_collision_point()
 	if player.grapplepoint == null:
-		if ray.is_colliding():
-			fling_pos = ray.get_collision_point()
+		
 		
 		fling_indicator.global_position = fling_indicator.global_position.lerp(fling_pos, 0.5)
 			
@@ -44,15 +44,17 @@ func _input(_event):
 		
 		if true:
 			
-			if ray.get_collision_mask_value(3):
-				return
-			
 			var point = fling_pos
 
 			var distance = fling_pos.distance_to(owner.position)
 			
 			if distance < grappledistance:
 				player.setgrapple(point, distance)
+			
+			if ray.get_collision_mask_value(3):
+				return
+			
+			
 			
 
 	if Input.is_action_just_released("grapple"):

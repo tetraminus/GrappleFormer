@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://bgk8u0w5p7oyc" path="res://assets/TileSet.tres" id="1_6cwki"]
 [ext_resource type="PackedScene" uid="uid://bss8gpldxhmhd" path="res://player.tscn" id="2_odjwq"]
-[ext_resource type="PackedScene" uid="uid://f4knexeppryv" path="res://Objects/TileObjects/Respawn/Spawn.tscn" id="3_g2xns"]
+[ext_resource type="PackedScene" uid="uid://f4knexeppryv" path="res://Objects/Reusable/Respawn/Spawn.tscn" id="3_g2xns"]
 
 [node name="level1_6" type="Node2D"]
 
