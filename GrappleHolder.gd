@@ -43,16 +43,11 @@ func _input(_event):
 
 		
 		if true:
-			var point = fling_pos
-
-		if ray.is_colliding():
+			
 			if ray.get_collision_mask_value(3):
 				return
 			
-			
-			
-			var distance = ray.get_collision_point().distance_to(owner.position)
-
+			var point = fling_pos
 
 			var distance = fling_pos.distance_to(owner.position)
 			
