@@ -46,12 +46,12 @@ func SetSpawnpoint(spawnpoint:Node2D) -> void:
 	current_spawnpoint = spawnpoint
 
 
-func _launchReady():
+func _launchReady() -> void:
 	
 	launchRefreshed = true
 	fling_indicator.emitting = true
 
-func _on_anim_ended(_anim):
+func _on_anim_ended(_anim) -> void:
 	if idlePlaying == true:
 		
 		if randi_range(1,10) == 5 and doubleIdleSpecial == false:
@@ -69,7 +69,7 @@ func _on_anim_ended(_anim):
 			animation.play("idle 1")
 			doubleIdleSpecial = false
 	
-func _process(_delta):
+func _process(_delta) -> void:
 	
 	
 	if sliding:
@@ -118,7 +118,7 @@ func _process(_delta):
 var coyote_timer = 0
 var testvec
 #2d rigidbody character controller
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	
 	
 	var collision = KinematicCollision2D.new()
@@ -235,7 +235,7 @@ func _physics_process(_delta):
 		camera_offset.y += linear_velocity.y * 0.0001
 	$Camera2D.position = lerp($Camera2D.position, Vector2.ZERO + camera_offset, .1)	
 	
-func _integrate_forces(state):
+func _integrate_forces(state) -> void:
 	# prevent slipping down slopes while standing still but allow sliding
 
 	var collision = KinematicCollision2D.new()

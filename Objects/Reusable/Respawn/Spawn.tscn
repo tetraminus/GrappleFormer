@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://f4knexeppryv"]
+
+[ext_resource type="Script" path="res://Objects/Reusable/Respawn/SpawnPoint.gd" id="1_qmkb4"]
+
+[node name="Spawn" type="Area2D"]
+script = ExtResource("1_qmkb4")
