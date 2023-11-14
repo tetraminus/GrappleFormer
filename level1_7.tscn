@@ -14,3 +14,4 @@ layer_0/tile_data = PackedInt32Array(131071, 65536, 0, 65536, 65536, 0, 131070, 
 [node name="player" parent="." instance=ExtResource("2_rifn6")]
 
 [node name="Spawn" parent="." instance=ExtResource("3_lirtb")]
+default = true
