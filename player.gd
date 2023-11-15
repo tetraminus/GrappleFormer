@@ -40,7 +40,7 @@ func _ready():
 	gravity = base_gravity
 	launch_cooldown.timeout.connect(_launchReady)
 	animation.animation_finished.connect(_on_anim_ended)
-
+	SceneTransitionManager.PlayerLoaded.emit()
 	
 func SetSpawnpoint(spawnpoint:Node2D) -> void:
 	current_spawnpoint = spawnpoint

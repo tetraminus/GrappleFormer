@@ -12,6 +12,8 @@ signal PlayerLoaded
 
 func GoToLevel(player: Node2D, prevLevel: Node2D) -> void:
 	# level should be loaded by now
+	get_tree().get_root().remove_child(player)
+	prevLevel.queue_free()
 	var level
 
 	if loadedlevel != null:
@@ -35,8 +37,7 @@ func GoToLevel(player: Node2D, prevLevel: Node2D) -> void:
 	
 	
 	#queue_free prevLevel except for player
-	prevLevel.remove_child(player)
-	prevLevel.queue_free()
+	
 
 	# add player to new level
 	var spawnpoint = get_tree().get_nodes_in_group("PlayerSpawn")

@@ -7,6 +7,7 @@ func _ready():
 	body_entered.connect(on_body_entered)
 	if default:
 		await SceneTransitionManager.PlayerLoaded
+		print("bingus")
 		get_tree().get_first_node_in_group("Player").SetSpawnpoint(self)
 
 func on_body_entered(body):
