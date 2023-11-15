@@ -1,14 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://cj8abumgonchk"]
 
-[ext_resource type="PackedScene" uid="uid://bss8gpldxhmhd" path="res://player.tscn" id="1_lxopb"]
-[ext_resource type="TileSet" uid="uid://bgk8u0w5p7oyc" path="res://assets/TileSet.tres" id="2_qi2au"]
+[ext_resource type="TileSet" uid="uid://bgk8u0w5p7oyc" path="res://assets/TileSet.tres" id="2_32c70"]
+[ext_resource type="PackedScene" uid="uid://f4knexeppryv" path="res://Objects/Reusable/Respawn/Spawn.tscn" id="2_laf0w"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="player" parent="." instance=ExtResource("1_lxopb")]
-position = Vector2(0, -4)
-
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("2_qi2au")
+tile_set = ExtResource("2_32c70")
 format = 2
 layer_0/tile_data = PackedInt32Array(262149, 131072, 2, 196613, 131072, 1, 131077, 131072, 0, 262148, 65536, 2, 196612, 65536, 1, 131076, 65536, 0, 262147, 65536, 2, 196611, 65536, 1, 131075, 65536, 0, 262146, 65536, 2, 196610, 65536, 1, 131074, 65536, 0, 262145, 65536, 2, 196609, 65536, 1, 131073, 65536, 0, 262144, 65536, 2, 196608, 65536, 1, 131072, 65536, 0, 327679, 65536, 2, 262143, 65536, 1, 196607, 65536, 0, 327678, 0, 2, 262142, 0, 1, 196606, 0, 0, -720891, 458752, 0, -983026, 458752, 0, -1179624, 458752, 0, -1245150, 458752, 0, -1310670, 458752, 0, -393202, 2, 0)
+
+[node name="Node2D" type="Node2D" parent="." groups=["PlayerSpawn"]]
+
+[node name="Spawn" parent="." instance=ExtResource("2_laf0w")]
+default = true
