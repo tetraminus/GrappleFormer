@@ -1,5 +1,6 @@
 extends Node2D
-@onready var ray: RayCast2D = $RayCast2D
+@onready var grappleRay: RayCast2D = $GrappleRay
+@onready var blocker_ray = $BlockerRay
 @export var grappledistance:int
 @export var grapplespeed:int
 var player
@@ -9,16 +10,15 @@ var fling_pos: Vector2 = Vector2(0, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	ray.target_position = Vector2(grappledistance,0)
+	grappleRay.target_position = Vector2(grappledistance,0)
+	blocker_ray.target_position = Vector2(grappledistance,0)
 	player = owner as Player
 	#DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	
 
 func _process(_delta):
 
-	look_at(get_global_mouse_position())
-	if ray.is_colliding():
-		fling_pos = ray.get_collision_point()
+	
 	if player.grapplepoint == null:
 		
 		
@@ -29,7 +29,11 @@ func _process(_delta):
 	else:
 		fling_indicator.global_position = player.grapplepoint
 		
-	
+
+func _physics_process(_delta):
+	look_at(get_global_mouse_position())
+	if grappleRay.is_colliding() and !blocker_ray.is_colliding():
+		fling_pos = grappleRay.get_collision_point()
 		
 		
 
@@ -39,20 +43,16 @@ func _input(_event):
 	
 
 	if Input.is_action_just_pressed("grapple"):
-		ray.force_raycast_update()
+		grappleRay.force_raycast_update()
+			
+		var point = fling_pos
 
-		
-		if true:
+		var distance = fling_pos.distance_to(owner.position)
 			
-			var point = fling_pos
-
-			var distance = fling_pos.distance_to(owner.position)
+		if distance < grappledistance:
+			player.setgrapple(point, distance)
 			
-			if distance < grappledistance:
-				player.setgrapple(point, distance)
 			
-			if ray.get_collision_mask_value(3):
-				return
 			
 			
 			
