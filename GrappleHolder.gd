@@ -5,7 +5,7 @@ extends Node2D
 @export var grapplespeed:int
 var player
 @onready var fling_indicator = %flingIndicator
-var fling_pos: Vector2 = Vector2(0, 0)
+var fling_pos = Vector2(0, 0)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -34,7 +34,8 @@ func _physics_process(_delta):
 	look_at(get_global_mouse_position())
 	if grappleRay.is_colliding() and !blocker_ray.is_colliding():
 		fling_pos = grappleRay.get_collision_point()
-		
+	if blocker_ray.is_colliding():
+		fling_pos = null
 		
 
 
@@ -44,13 +45,14 @@ func _input(_event):
 
 	if Input.is_action_just_pressed("grapple"):
 		grappleRay.force_raycast_update()
-			
-		var point = fling_pos
+		
+		if fling_pos != null:
+			var point = fling_pos
 
-		var distance = fling_pos.distance_to(owner.position)
-			
-		if distance < grappledistance:
-			player.setgrapple(point, distance)
+			var distance = fling_pos.distance_to(owner.position)
+				
+			if distance < grappledistance:
+				player.setgrapple(point, distance)
 			
 			
 			
