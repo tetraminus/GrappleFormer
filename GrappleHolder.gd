@@ -5,7 +5,7 @@ extends Node2D
 @export var grapplespeed:int
 var player
 @onready var fling_indicator = %flingIndicator
-var fling_pos = Vector2(0, 0)
+var fling_pos = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,23 +20,35 @@ func _process(_delta):
 
 	
 	if player.grapplepoint == null:
-		
-		
-		fling_indicator.global_position = fling_indicator.global_position.lerp(fling_pos, 0.5)
-			
-
-			
+		if fling_pos != null:
+			fling_indicator.visible = true
+			fling_indicator.global_position = fling_indicator.global_position.lerp(fling_pos, 0.5)
+		else:
+			fling_indicator.visible = false
 	else:
 		fling_indicator.global_position = player.grapplepoint
 		
 
 func _physics_process(_delta):
 	look_at(get_global_mouse_position())
-	if grappleRay.is_colliding() and !blocker_ray.is_colliding():
-		fling_pos = grappleRay.get_collision_point()
-	if blocker_ray.is_colliding():
-		fling_pos = null
-		
+	var blockerpos = blocker_ray.get_collision_point()
+
+	if blocker_ray.get_collider() != null:
+		grappleRay.target_position = Vector2(blocker_ray.global_position.distance_to(blockerpos),0)
+		grappleRay.force_raycast_update()
+	else :
+		grappleRay.target_position = Vector2(grappledistance,0)
+		grappleRay.force_raycast_update()
+
+	var grapplepos = grappleRay.get_collision_point()
+
+	if grapplepos != null:
+		fling_pos = grapplepos
+	
+
+	
+	
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
