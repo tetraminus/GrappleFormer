@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://diblc4d56ahbx"]
+[gd_scene load_steps=6 format=3 uid="uid://diblc4d56ahbx"]
 
 [ext_resource type="TileSet" uid="uid://bgk8u0w5p7oyc" path="res://assets/TileSet.tres" id="2_anhl8"]
 [ext_resource type="PackedScene" uid="uid://cmtfn06fse05k" path="res://Objects/Reusable/LevelTransition/LevelTransition.tscn" id="3_3k5do"]
+[ext_resource type="PackedScene" uid="uid://banfkjjtcasjc" path="res://Objects/Reusable/KillPlane/KillPlane.tscn" id="4_dsmkf"]
 [ext_resource type="PackedScene" uid="uid://f4knexeppryv" path="res://Objects/Reusable/Respawn/Spawn.tscn" id="4_tmwph"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xm1k7"]
@@ -29,3 +30,6 @@ default = true
 
 [node name="playerSpawn" type="Node2D" parent="." groups=["PlayerSpawn"]]
 position = Vector2(-1, -10)
+
+[node name="KillPlane" parent="." instance=ExtResource("4_dsmkf")]
+position = Vector2(297, 61)

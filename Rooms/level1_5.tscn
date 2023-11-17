@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://650yt8rh7vir"]
+[gd_scene load_steps=6 format=3 uid="uid://650yt8rh7vir"]
 
 [ext_resource type="TileSet" uid="uid://bgk8u0w5p7oyc" path="res://assets/TileSet.tres" id="1_cm3a2"]
 [ext_resource type="PackedScene" uid="uid://f4knexeppryv" path="res://Objects/Reusable/Respawn/Spawn.tscn" id="3_0no30"]
 [ext_resource type="PackedScene" uid="uid://cmtfn06fse05k" path="res://Objects/Reusable/LevelTransition/LevelTransition.tscn" id="3_4t3e8"]
+[ext_resource type="PackedScene" uid="uid://banfkjjtcasjc" path="res://Objects/Reusable/KillPlane/KillPlane.tscn" id="4_cjvrn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wajye"]
 size = Vector2(20, 38)
 
-[node name="level1_5" type="Node2D"]
+[node name="level1_5" type="Node2D" groups=["Level"]]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_cm3a2")
@@ -26,3 +27,6 @@ levelName = "level1_6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelTransition"]
 shape = SubResource("RectangleShape2D_wajye")
+
+[node name="KillPlane" parent="." instance=ExtResource("4_cjvrn")]
+position = Vector2(39, 109)
