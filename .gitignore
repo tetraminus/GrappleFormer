@@ -6,3 +6,4 @@
 .DS_Store
 Exports.zip
 ./Exports/..
+Exports/*
