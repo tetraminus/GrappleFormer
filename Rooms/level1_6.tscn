@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c401q68qf5xot"]
+[gd_scene load_steps=6 format=3 uid="uid://c401q68qf5xot"]
 
 [ext_resource type="TileSet" uid="uid://bgk8u0w5p7oyc" path="res://assets/TileSet.tres" id="1_6cwki"]
 [ext_resource type="Texture2D" uid="uid://bdnrn0ndqp7q5" path="res://assets/citybg1.png" id="2_6cx6e"]
 [ext_resource type="PackedScene" uid="uid://f4knexeppryv" path="res://Objects/Reusable/Respawn/Spawn.tscn" id="3_g2xns"]
 [ext_resource type="PackedScene" uid="uid://cmtfn06fse05k" path="res://Objects/Reusable/LevelTransition/LevelTransition.tscn" id="4_anipc"]
-[ext_resource type="PackedScene" uid="uid://banfkjjtcasjc" path="res://Objects/Reusable/KillPlane/KillPlane.tscn" id="5_i3v4a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0n10"]
 size = Vector2(20, 94)
@@ -42,6 +41,3 @@ levelName = "level1_7"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelTransition"]
 position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_a0n10")
-
-[node name="KillPlane" parent="." instance=ExtResource("5_i3v4a")]
-position = Vector2(279, 378)
