@@ -26,12 +26,10 @@ curve = SubResource("Curve_rc3hk")
 particle_flag_align_y = true
 particle_flag_disable_z = true
 spread = 0.0
-gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
 initial_velocity_max = 10.0
 angular_velocity_min = 252.26
 angular_velocity_max = 252.26
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
 scale_min = 0.5
 scale_curve = SubResource("CurveTexture_ocxf0")
 color = Color(0.207843, 0.941176, 1, 1)
@@ -169,28 +167,28 @@ point_count = 4
 curve = SubResource("Curve_o0uhu")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g4m8a"]
+particle_flag_disable_z = true
 emission_shape = 6
 emission_ring_axis = Vector3(0, 0, 1)
 emission_ring_height = 1.0
 emission_ring_radius = 5.0
 emission_ring_inner_radius = 2.0
-particle_flag_disable_z = true
 direction = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
 spread = 0.0
-gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
 orbit_velocity_min = 1.0
 orbit_velocity_max = 1.0
 orbit_velocity_curve = SubResource("CurveTexture_00fio")
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
 color = Color(0.168627, 0.945098, 1, 1)
 
 [node name="player" type="RigidBody2D" groups=["Player"]]
 material = SubResource("ShaderMaterial_jjgpb")
 physics_material_override = SubResource("PhysicsMaterial_bfvmk")
+can_sleep = false
+lock_rotation = true
 continuous_cd = 1
 max_contacts_reported = 10
 contact_monitor = true
-can_sleep = false
-lock_rotation = true
 script = ExtResource("1_2nm25")
 speed = 25
 max_speed = 100
